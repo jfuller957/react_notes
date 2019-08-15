@@ -2,8 +2,19 @@ const { Component } =  React;
 const { render } = ReactDOM;
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state= {
+      numbers: [
+        1, 2, 3, 9
+      ]
+    };
+  }
   render(){
-    return React.createElement('hr');
+    const { numbers } = this.state;
+    const lis = numbers.map( (number, idx) => React.createElement('li', { key: idx}, number)
+    );
+    return React.createElement('ul', null, lis);
   }
 }
 
