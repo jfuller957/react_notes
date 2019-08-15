@@ -1,6 +1,15 @@
 const { Component } =  React;
 const { render } = ReactDOM;
 
+const Loader = ()=> {
+  return React.createElement('div', null, '...wait for it...');
+}
+
+const List = ({ numbers })=> {
+  const lis = numbers.map( (number, idx) => React.createElement('li', { key: idx}, number));
+  return React.createElement('ul', null, lis);
+}
+
 class App extends Component {
   constructor(){
     super();
@@ -22,11 +31,9 @@ class App extends Component {
   render(){
     const { numbers, waiting } = this.state;
     if(waiting){
-      return React.createElement('div', null, '...wait for it...');
+      return React.createElement(Loader);
     }
-    const lis = numbers.map( (number, idx) => React.createElement('li', { key: idx}, number)
-    );
-    return React.createElement('ul', null, lis);
+    return React.createElement(List, { numbers });
   }
 }
 
