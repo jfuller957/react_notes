@@ -9,9 +9,13 @@
   <title>Document</title>
 </head>
 <body>
+  <div id="root"></div>
 
   <script>
-    console.log(React);
+    const { Component } =  React;
+    const { render } = ReactDOM;
+    const root = document.querySelector('#root');
+    render(React.createElement('hr'), root);
   </script>
 </body>
 </html>
