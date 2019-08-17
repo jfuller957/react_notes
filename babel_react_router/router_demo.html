@@ -13,6 +13,9 @@
       display: flex;
       justify-content: space-around;
     }
+    .selected {
+      border: solid 1px black;
+    }
   </style>
   <title>Router Demo</title>
 </head>
@@ -25,16 +28,27 @@
     const { render } = ReactDOM;
     const root = document.querySelector('#root');
 
-    const Home = ()=> <h1>Home</h1>;
+    const Home = ()=> {
+      return (
+        <h1>Home</h1>
+      );
+    }
     const About = ()=> <h1>About Us</h1>;
+
+    const Nav = (props)=> {
+      const path = props.location.pathname;
+      return (
+        <nav>
+          <Link to='/home' className={ path === '/home' ? 'selected' : ''}>Home</Link>
+          <Link to='/about' className={ path === '/about' ? 'selected' : ''}>About</Link>
+        </nav>
+      );
+    }
 
     const App = ()=> {
       return (
         <HashRouter>
-          <nav>
-            <Link to='/home'>Home</Link>
-            <Link to='/about'>About</Link>
-          </nav>
+          <Route component={ Nav } />
           <Switch>
             <Route path='/home' component={ Home } />
             <Route path='/about' component={ About } />
