@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <title>Router Demo</title>
+</head>
+<body>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    const { render } = ReactDOM;
+    const root = document.querySelector('#root');
+
+    const Home = ()=> <h1>Home</h1>;
+    const About = ()=> <h1>About Us</h1>;
+
+    class App extends React.Component{
+      constructor(){
+        super();
+        this.state = {
+          view: 'home'
+        };
+      }
+      setView(view){
+        this.setState({ view });
+      }
+
+      render(){
+        const { view } = this.state;
+        let Current;
+        if(view === "home") {
+          Current = Home;
+        }
+        else if (view === "about") {
+          Current = About
+        }
+        return (
+          <div>
+            <a onClick={()=> this.setView('home')}>Home</a>
+            <a onClick={()=> this.setView('about')}>About Us</a>
+            <Current />
+          </div>
+        );
+      }
+    }
+    render(<App />, root);
+
+
+  </script>
+
+</body>
+</html>
