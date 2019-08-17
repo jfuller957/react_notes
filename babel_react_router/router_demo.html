@@ -35,27 +35,59 @@
     }
     const About = ()=> <h1>About Us</h1>;
 
-    const Nav = (props)=> {
-      const path = props.location.pathname;
+    const Users = ({ users})=> {
+      return (
+        <div>
+          <h1>Users</h1>
+          <ul>
+            {
+              users.map( (user, idx) => <li key={ idx }>{ user.name }</li>)
+            }
+          </ul>
+        </div>
+      );
+    }
+
+    const Nav = ({ path, users })=> {
       return (
         <nav>
           <Link to='/home' className={ path === '/home' ? 'selected' : ''}>Home</Link>
           <Link to='/about' className={ path === '/about' ? 'selected' : ''}>About</Link>
+          <Link to='/users' className={ path === '/users' ? 'selected' : ''}>Users ({ users.length })</Link>
         </nav>
       );
     }
 
-    const App = ()=> {
-      return (
-        <HashRouter>
-          <Route component={ Nav } />
-          <Switch>
-            <Route path='/home' component={ Home } />
-            <Route path='/about' component={ About } />
-            <Redirect to='/home' />
-          </Switch>
-        </HashRouter>
-      );
+    class App extends React.Component{
+      constructor() {
+        super();
+        this.state = {
+          users: [
+            { name: 'Moe' },
+            { name: 'Larry' }
+          ]
+        };
+      }
+      componentDidMount(){
+        setTimeout(() => {
+          const users = [...this.state.users, { name: 'Curly'}];
+          this.setState({ users });
+        }, 1000);
+      }
+      render(){
+        const { users } = this.state;
+        return (
+          <HashRouter>
+            <Route render={ (props)=> <Nav users={ users } path={props.location.pathname } /> }/>
+            <Switch>
+              <Route path='/home' component={ Home } />
+              <Route path='/about' component={ About } />
+              <Route path='/users' render={ ()=> <Users users={ users }/> } />
+              <Redirect to='/home' />
+            </Switch>
+          </HashRouter>
+        );
+      }
     }
     render(<App />, root);
 
