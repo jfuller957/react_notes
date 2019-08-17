@@ -5,8 +5,12 @@ const Loader = ()=> {
   return React.createElement('div', null, '...wait for it...');
 }
 
+const Item = ({ number })=> {
+  return React.createElement('li', null, number)
+}
+
 const List = ({ numbers })=> {
-  const lis = numbers.map( (number, idx) => React.createElement('li', { key: idx}, number));
+  const lis = numbers.map( (number, idx) => React.createElement(Item, { key: idx, number }));
   return React.createElement('ul', null, lis);
 }
 

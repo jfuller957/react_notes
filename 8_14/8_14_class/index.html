@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    .nav {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script>
+    const { render } = ReactDOM;
+    const { createElement, Component } = React;
+
+    const Nav = ({ foos, bars })=> {
+      return createElement('div',
+      { className: 'nav' },
+      React.createElement('a', { href : '#foos'}, `Foos (${foos.length})`),
+      React.createElement('a', { href : '#bars'}, `Bars (${bars.length})`)
+      );
+    };
+
+    class App extends Component{
+      constructor(){
+        super();
+        this.state = {
+          foos: [],
+          bars: []
+        };
+      }
+
+      componentDidMount(){
+        setTimeout(()=> {
+          const foos =[{ id: 1, name: 'foo 1'}, { id: 2, name: 'foo 2'}, { id: 3, name: 'foo 3'}];
+          const bars =[{ id: 1, name: 'bar 1'}, { id: 2, name: 'bar 2'}];
+          this.state({ foos, bars });
+        }, 500);
+      }
+
+      render(){
+        const { foos, bars } = this.state;
+        const nav = React.createElement(Nav, {foos, bars });
+        // const currentView;
+        // if(page === 'foos') {
+        //   currentView = createElement(Foos, { foos });
+        // }
+        // if(page === 'bars') {
+        //   currentView = createElement(Bars, { bars });
+        // }
+        return createElement('div', null, 'React App', nav);
+      }
+    }
+
+    const root = document.querySelector('#root');
+    render(createElement(App), root);
+  </script>
+</body>
+</html>
