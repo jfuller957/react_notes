@@ -7,6 +7,12 @@
   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <style>
+    nav {
+      display: flex;
+      justify-content: space-around;
+    }
+  </style>
   <title>Router Demo</title>
 </head>
 <body>
@@ -28,9 +34,20 @@
           view: 'home'
         };
       }
-      setView(view){
+      componentDidMount(){
+        window.addEventListener('hashchange', ()=> {
+          const hash = window.location.hash;
+          const view = hash.slice(1);
+          this.setState({ view });
+        });
+        const hash = window.location.hash;
+        const view = hash.slice(1);
         this.setState({ view });
+
       }
+      // setView(view){
+      //   this.setState({ view });
+      // }
 
       render(){
         const { view } = this.state;
@@ -43,9 +60,11 @@
         }
         return (
           <div>
-            <a onClick={()=> this.setView('home')}>Home</a>
-            <a onClick={()=> this.setView('about')}>About Us</a>
-            <Current />
+            <nav>
+              <a href='#home'>Home</a>
+              <a href='#about'>About Us</a>
+            </nav>
+            { !!Current && <Current /> }
           </div>
         );
       }
