@@ -16,8 +16,11 @@
   <script type="text/babel">
     const { render } = ReactDOM;
     const root = document.querySelector('#root');
+    // Using babel is easy as long as you understand you must type valid html and make sure to have a point to which you append your code.
     // render(React.createElement('div', null, React.createElement('h1', null, 'Hello World')), root);
-    render(<hr />, root);
+    // In order to add to the above code in babel, one must form the tree-like structure, so placing the h1 inside a div will allow for additional elements, such as an hr.
+
+    render(<div><h1>Hello World</h1><hr /></div>, root);
   </script>
 
 </body>
